@@ -8,10 +8,13 @@ from src.lib.logger.logger import get_logger
 
 cfg = load_config_by_path("config/config.yaml")
 
+# Получаем уровень логирования из конфига
 logger = get_logger(__name__, cfg.env, "logs/app.log")
 
+# Экземпляр модели
 model_instance = PredictionModel()
 
+# Предсказывает цену по признакам
 def predict(features: Features):
     try:
         logger.debug(f"Trying to predict price for features: {features}")
@@ -24,7 +27,7 @@ def predict(features: Features):
     logger.info(f"Predicted successfully")
     return {"predicted_price": prediction}
 
-
+# Тренирует модель на данных из файла
 def upload_data(file: UploadFile = File(...)):
     try:
         logger.debug(f"Trying to read file: {file.filename}")
